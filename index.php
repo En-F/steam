@@ -41,5 +41,7 @@
             <?php endforeach ?>
         </tbody>
     </table>
+    <br>    
+    <a href="insertar.php">Insertar nuevo cliente</a>
 </body>
 </html>
