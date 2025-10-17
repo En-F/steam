@@ -9,6 +9,7 @@
     <?php 
     require 'auxiliar.php';
 
+    
     $dni        = obtener_post('dni');
     $nombre     = obtener_post('nombre');
     $apellidos  = obtener_post('apellidos');
@@ -18,20 +19,31 @@
 
     if (isset($dni, $nombre, $apellidos, $direccion, $codpostal, $telefono)){
         //Validación
-        $pdo = conectar();
-        $sent = $pdo->prepare('INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
-                               VALUES (:dni, :nombre, :apellidos, :direccion, :codpostal, :telefono)');
-        $sent -> execute([
-        ':dni'        => $dni,
-        ':nombre'     => $nombre ,
-        ':apellidos'  => $apellidos ,
-        ':direccion'  => $direccion ,
-        ':codpostal'  => $codpostal ,
-        ':telefono'   => $telefono,   
-        ]);
+        $error = [];
+        validar_dni($dni,$error);
+        validar_nombre($nombre,$error);
+        validar_sanear_apellidos($apellidos,$error);
+        validar_sanear_direccion($direccion,$error);
+        validar_sanear_codpostal($codpostal, $error);
+        validar_sanear_telefono($telefono, $error);
         
-        return  volver_index();
-        
+        if (empty($error)) {
+            $pdo = conectar();
+            $sent = $pdo->prepare('INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
+                                   VALUES (:dni, :nombre, :apellidos, :direccion, :codpostal, :telefono)');
+            $sent -> execute([
+            ':dni'        => $dni,
+            ':nombre'     => $nombre ,
+            ':apellidos'  => $apellidos ,
+            ':direccion'  => $direccion ,
+            ':codpostal'  => $codpostal ,
+            ':telefono'   => $telefono,   
+            ]);
+            
+            return  volver_index();    
+        } else {
+            
+        }
     }
 
     ?>
