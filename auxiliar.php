@@ -21,8 +21,16 @@ function validar_dni($dni ,&$error) {
     if ($dni === '') {
             $error[] = 'El DNI es obligatorio';
         } else if ( mb_strlen($dni) > 9) {
-                $error[] = 'El DNIes demasiado largo0';
+                $error[] = 'El DNI es demasiado largo';
         } else {  
+            $pdo =  conectar();
+            $sent = $pdo->prepare('SELECT * FROM CLIENTES WHERE dni = :dni');
+            $sent ->execute([':dni'=> $dni]);
+            
+            //Comprueba si el cliente  existe un cliente con le ese dni 
+            if ($sent->fetch()){
+                $error[] = 'Ya existe un cliente con ese dni';
+            }
         } 
 }
 
@@ -50,7 +58,7 @@ function validar_sanear_direccion(&$direccion ,&$error) {
     if ($direccion === '') {
         $direccion = null;
     } elseif ( mb_strlen($direccion) > 255) {
-            $error[] = 'La direccion es  demasiado largos';
+            $error[] = 'La direccion es  demasiado larga';
         } else {  
         } 
 }
