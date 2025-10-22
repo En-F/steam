@@ -17,13 +17,15 @@ function volver_index (){
 
 
 
-function validar_dni($dni ,&$error) {
+function validar_dni($dni ,&$error, ?PDO $pdo = null) {
     if ($dni === '') {
             $error[] = 'El DNI es obligatorio';
         } else if ( mb_strlen($dni) > 9) {
                 $error[] = 'El DNI es demasiado largo';
         } else {  
-            $pdo =  conectar();
+            //operador funcion de null devuelve el 1($pdo) si no es nulo ,
+            // si es nulo devuelve el 2(conectar()) actua en cortocircuito
+            $pdo = $pdo ?? conectar();
             $sent = $pdo->prepare('SELECT * FROM CLIENTES WHERE dni = :dni');
             $sent ->execute([':dni'=> $dni]);
             

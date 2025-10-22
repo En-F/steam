@@ -19,6 +19,7 @@
 
     if (isset($dni, $nombre, $apellidos, $direccion, $codpostal, $telefono)){
         //Validación
+        $pdo = conectar();
         $error = [];
         validar_dni($dni,$error);
         validar_nombre($nombre,$error);
@@ -28,7 +29,6 @@
         validar_sanear_telefono($telefono, $error);
         
         if (empty($error)) {
-            $pdo = conectar();
             $sent = $pdo->prepare('INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
                                    VALUES (:dni, :nombre, :apellidos, :direccion, :codpostal, :telefono)');
             $sent -> execute([
