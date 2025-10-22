@@ -20,7 +20,7 @@
             <th>Dirección</th>
             <th>Código postal</th>
             <th>Teléfono</th>
-            <th>Acciones</th>
+            <th colspan="2">Acciones</th>
         </thead>
         <tbody>
             <?php foreach ($sent as $fila): ?>
@@ -36,6 +36,9 @@
                             <input type="hidden" name="id" value="<?= $fila['id'] ?>">
                             <button type="submit">Borrar</button>
                         </form>
+                    </td>
+                    <td>
+                        <a href="modificar.php?id=<?= $fila['id'] ?>">Modificar</a>
                     </td>
                 </tr>
             <?php endforeach ?>

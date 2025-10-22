@@ -61,6 +61,10 @@
         <label for="telefono">Teléfono: </label>
         <input type="text" id="telefono" name="telefono" value="<?=$telefono?>"><br>
         <button type="submit">Crear</button>
+        <a href="index.php">
+            <button type="button">Volver para atrás</button>
+        </a>
+
     </form>
 </body>
 </html>
