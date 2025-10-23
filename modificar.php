@@ -24,7 +24,7 @@
     }
 
     
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         $dni        = obtener_post('dni');
         $nombre     = obtener_post('nombre');

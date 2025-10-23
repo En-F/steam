@@ -1,3 +1,12 @@
+--Tabla usuarios
+DROP TABLE IF EXISTS usuarios CASCADE;
+
+CREATE TABLE usuarios (
+    id          BIGSERIAL       PRIMARY KEY,
+    nick        VARCHAR(255)    NOT NULL UNIQUE,
+    password    VARCHAR(255)    NOT NULL
+);
+
 -- Tabla de clientes de la tienda online
 
 DROP TABLE IF EXISTS clientes CASCADE;
@@ -34,6 +43,9 @@ CREATE TABLE videojuegos (
 );
 
 -- Datos de prueba
+
+INSERT INTO usuarios(nick,password)
+VALUES ('usuario',crypt('usuario',gen_salt('bf',10)));
 
 INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
 VALUES ('11111111A', 'Juan', 'Martínez', 'C/. Su casa', 11540, '666555444'),
