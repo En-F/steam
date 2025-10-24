@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,10 @@
 <body>
     <?php 
     require 'auxiliar.php';
-
+    cabecera();
+    if(!esta_logeado()){
+        return;
+    }
     
     $dni        = obtener_post('dni');
     $nombre     = obtener_post('nombre');

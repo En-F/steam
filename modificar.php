@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,11 @@
 <body>
     <?php 
     require 'auxiliar.php';
+    if(!esta_logeado()){
+        return;
+    }
 
+    cabecera();
     $id = obtener_get('id');
 
     if(!isset($id)||!ctype_digit($id)){

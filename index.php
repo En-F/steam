@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,14 @@
     <?php
     require 'auxiliar.php';
 
+    if(!esta_logeado()){
+        return ;
+    }
+
     $pdo = conectar();
     $sent = $pdo->query('SELECT * FROM clientes');
     ?>
+    <?php cabecera()?>
     <table border="1">
         <thead>
             <th>DNI</th>
