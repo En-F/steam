@@ -134,7 +134,7 @@ function cabecera()
 {
 ?>
     <div align="right">
-        <?= $_SESSION['nick'] ?>
+        <?= hh($_SESSION['nick']) ?>
         <a href="logout.php">Logout</a>
     </div>
     <hr>
@@ -150,3 +150,8 @@ function esta_logeado()
     }
     return true;
 }   
+
+function hh($cadena) 
+{   //Combierte el nulo en cadena vacía
+    return htmlspecialchars($cadena ?? '');
+}

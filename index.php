@@ -31,20 +31,20 @@
         <tbody>
             <?php foreach ($sent as $fila): ?>
                 <tr>
-                    <td><?= $fila['dni'] ?></td>
-                    <td><?= $fila['nombre'] ?></td>
-                    <td><?= $fila['apellidos'] ?></td>
-                    <td><?= $fila['direccion'] ?></td>
-                    <td><?= $fila['codpostal'] ?></td>
-                    <td><?= $fila['telefono'] ?></td>
+                    <td><?= hh($fila['dni']) ?></td>
+                    <td><?= hh($fila['nombre']) ?></td>
+                    <td><?= hh($fila['apellidos']) ?></td>
+                    <td><?= hh($fila['direccion']) ?></td>
+                    <td><?= hh($fila['codpostal']) ?></td>
+                    <td><?= hh($fila['telefono']) ?></td>
                     <td>
                         <form action="borrar.php" method="post">
-                            <input type="hidden" name="id" value="<?= $fila['id'] ?>">
+                            <input type="hidden" name="id" value="<?= hh($fila['id']) ?>">
                             <button type="submit">Borrar</button>
                         </form>
                     </td>
                     <td>
-                        <a href="modificar.php?id=<?= $fila['id'] ?>">Modificar</a>
+                        <a href="modificar.php?id=<?= hh($fila['id']) ?>">Modificar</a>
                     </td>
                 </tr>
             <?php endforeach ?>
