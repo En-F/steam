@@ -142,7 +142,7 @@ function cabecera()
 }
 
 
-function esta_logeado()
+function esta_logueado()
 {
     if(!isset($_SESSION['nick'])){
         header('Location: login.php');
@@ -155,3 +155,24 @@ function hh($cadena)
 {   //Combierte el nulo en cadena vacía
     return htmlspecialchars($cadena ?? '');
 }
+
+
+function token_csrf(): string
+{
+    if (!isset($_SESSION['_csrf'])){
+        $_SESSION['_csrf'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['_csrf'];
+}
+
+
+function comprobar_csrf(string $_csrf) :bool
+{
+    return token_csrf() == $_csrf;
+}
+
+
+function campo_csrf()
+{ ?>
+    <input type="hidden" name="_csrf" value="<?=token_csrf()?>"> <?php
+} 

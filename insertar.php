@@ -9,21 +9,26 @@
 <body>
     <?php 
     require 'auxiliar.php';
-    cabecera();
-    if(!esta_logeado()){
+    if(!esta_logueado()){
         return;
     }
     
+    $_csrf      = obtener_post(('_csrf'));
     $dni        = obtener_post('dni');
     $nombre     = obtener_post('nombre');
     $apellidos  = obtener_post('apellidos');
     $direccion  = obtener_post('direccion');
     $codpostal  = obtener_post('codpostal');
     $telefono   = obtener_post('telefono') ; 
-
-    if (isset($dni, $nombre, $apellidos, $direccion, $codpostal, $telefono)){
+    
+    if (isset($_csrf,$dni, $nombre, $apellidos, $direccion, $codpostal, $telefono)){
         //Validación
+        if(!comprobar_csrf($_csrf));{
+            return volver_index();
+        }
         $pdo = conectar();
+        $pdo->beginTransaction();
+        $pdo->execute ('LOCK TABLE lientes IN SHARE MODE');
         $error = [];
         validar_dni($dni,$error);
         validar_nombre($nombre,$error);
@@ -43,15 +48,18 @@
             ':codpostal'  => $codpostal ,
             ':telefono'   => $telefono,   
             ]);
-            
+            $pdo->commit();
             return  volver_index();    
         } else {
+            $pdo->rollBack();
+            cabecera();
             mostrar_errores($error);
         }
     }
 
     ?>
     <form action="" method="post">
+        <?php campo_csrf() ?>
         <label for="dni">DNI:* </label>
         <input type="text" id="dni" name="dni" value="<?=hh($dni)?>"><br>
         <label for="nombre">Nombre:* </label>

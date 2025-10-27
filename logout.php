@@ -4,7 +4,7 @@ session_start();
 
 //vaciar la variable sesion
 $_SESSION = [];
-$params = session_get_cookie_params(); //te deuelve un array con todos los parametros de la sesion
+$params = session_get_cookie_params(); //te devuelve un array con todos los parametros de la sesion
 //sesion_name te devuelve el nombre que se utilza en la sesión
 setcookie(session_name(),
                         '',
