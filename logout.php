@@ -16,5 +16,6 @@ setcookie(session_name(),
 );
 //funcion que destruye una función que se halla con el sesion_start()
 session_destroy();
+//NO se va a visualizar porque el login no tiene una cabezera en la que mostrar el mensaje
 $_SESSION['exito']='Sesión finalizada correctamente';
 header(('Location: login.php'));
