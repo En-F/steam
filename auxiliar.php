@@ -138,6 +138,16 @@ function cabecera()
         <a href="logout.php">Logout</a>
     </div>
     <hr>
+    <?php if(isset($_SESSION['exito'])):?>
+        <h3><?=$_SESSION['exito']?></h3>
+            <!-- Elimina la variable de sesion -->
+        <?php unset($_SESSION['exito'])?>
+    <?php endif ?>
+    <?php if(isset($_SESSION['fallo'])):?>
+        <h3><?=$_SESSION['fallo']?></h3>
+            <!-- Se elimina la variable de sesion una vez creada  -->
+        <?php unset($_SESSION['fallo'])?>
+    <?php endif ?>
 <?php
 }
 

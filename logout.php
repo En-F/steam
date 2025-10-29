@@ -16,4 +16,5 @@ setcookie(session_name(),
 );
 //funcion que destruye una función que se halla con el sesion_start()
 session_destroy();
+$_SESSION['exito']='Sesión finalizada correctamente';
 header(('Location: login.php'));

@@ -23,12 +23,12 @@
     
     if (isset($_csrf,$dni, $nombre, $apellidos, $direccion, $codpostal, $telefono)){
         //Validación
-        if(!comprobar_csrf($_csrf));{
+        if(!comprobar_csrf($_csrf)){
             return volver_index();
         }
         $pdo = conectar();
         $pdo->beginTransaction();
-        $pdo->execute ('LOCK TABLE lientes IN SHARE MODE');
+        $pdo->exec('LOCK TABLE clientes IN SHARE MODE');
         $error = [];
         validar_dni($dni,$error);
         validar_nombre($nombre,$error);
@@ -49,8 +49,10 @@
             ':telefono'   => $telefono,   
             ]);
             $pdo->commit();
+            $_SESSION['exito']='El cliente se ha insertado correctamente';
             return  volver_index();    
         } else {
+            $_SESSION['fallo']='Ocurrio un error al insertar un nuevo cliente';
             $pdo->rollBack();
             cabecera();
             mostrar_errores($error);

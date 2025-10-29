@@ -25,6 +25,7 @@
         if ($fila &&  password_verify($password, $fila['password'])){
             //recordar que hya un usuario que se ha logeado correctamente y lo voy a recordar
             $_SESSION['nick'] = $nick;
+            $_SESSION['exito']='Has iniciado sesión correctamente';
             return volver_index();
         } else{
             echo "<h2>Credenciales incorrectas</h2>";

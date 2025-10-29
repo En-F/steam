@@ -8,6 +8,7 @@ if(!esta_logueado()){
     }
 
 if ($_SESSION['nick'] != 'admin'){
+    $_SESSION['fallo']= 'No tiene permiso para borrar un cliente';
     return volver_index();
 }
 
@@ -23,6 +24,7 @@ if (isset($id,$_csrf)) {
     $pdo = conectar();
     $sent = $pdo->prepare("DELETE FROM clientes WHERE id = :id");
     $sent->execute([':id' => $id]);
+    $_SESSION['exito']='El cliente  se ha borrado corretamente';
 }
 
 header('Location: index.php');

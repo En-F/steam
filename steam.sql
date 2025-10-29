@@ -45,7 +45,8 @@ CREATE TABLE videojuegos (
 -- Datos de prueba
 
 INSERT INTO usuarios(nick,password)
-VALUES ('usuario',crypt('usuario',gen_salt('bf',10)));
+VALUES ('usuario',crypt('usuario',gen_salt('bf',10))),
+        ('admin',crypt('admin',gen_salt('bf',10)));
 
 INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
 VALUES ('11111111A', 'Juan', 'Martínez', 'C/. Su casa', 11540, '666555444'),

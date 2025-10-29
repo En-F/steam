@@ -24,6 +24,7 @@
     $fila = buscar_cliente($id, $pdo);
 
     if (!$fila) {
+        $_SESSION['fallo']='El cliente se ha modificar no existe';
         return volver_index();
     }
 
@@ -66,8 +67,10 @@
                     ':codpostal' => $codpostal,
                     ':telefono'  => $telefono,
                 ]);
+                $_SESSION['exito']='El cliente se ha modificado  correctamente';
                 return volver_index();
             } else {
+                $_SESSION['fallo']='Error al intentar modificar el cliente';
                 mostrar_errores($error);
             }
         }
