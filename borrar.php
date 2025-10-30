@@ -1,5 +1,6 @@
 <?php
-require 'auxiliar.php';
+require_once 'auxiliar.php';
+require_once 'Cliente.php';
 session_start();
 cabecera();
 
@@ -21,9 +22,9 @@ if (isset($id,$_csrf)) {
     if(!comprobar_csrf($_csrf)){
         return volver_index();
     }
-    $pdo = conectar();
-    $sent = $pdo->prepare("DELETE FROM clientes WHERE id = :id");
-    $sent->execute([':id' => $id]);
+    $cliente = Cliente::buscar_por_id($id);
+    // intento invocar el metodo borrar, si no da nulo, si da nul pues se invoca
+    $cliente?->borrar_por_id($id);
     $_SESSION['exito']='El cliente  se ha borrado corretamente';
 }
 
