@@ -9,7 +9,7 @@
 <body>
     <?php
     require_once 'auxiliar.php';
-    require 'Cliente.php';
+    require_once 'Cliente.php';
 
     if(!esta_logueado()){
         return ;

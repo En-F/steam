@@ -1,7 +1,5 @@
 <?php
 
-use Dom\Document;
-
 require_once 'auxiliar.php';
 
 class Cliente
@@ -124,7 +122,5 @@ class Cliente
         Cliente::$pdo = Cliente::$pdo ?? conectar();
         return Cliente::$pdo;
     }
-
-    
 
 }

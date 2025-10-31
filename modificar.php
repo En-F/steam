@@ -42,7 +42,7 @@
                 return volver_index();
             }
             $error = [];
-            validar_dni_update($dni, $id, $error, $pdo);
+            validar_dni_update($dni, $id, $error);
             validar_nombre($nombre, $error);
             validar_sanear_apellidos($apellidos, $error);
             validar_sanear_direccion($direccion, $error);

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Cliente.php';
+
 function conectar()
 {
     return new PDO('pgsql:host=localhost;dbname=steam', 'steam', 'steam');
@@ -30,7 +32,7 @@ function validar_dni($dni ,&$error, ?PDO $pdo = null)
         } else if ( mb_strlen($dni) > 9) {
                 $error[] = 'El DNI es demasiado largo';
         } else {  
-            if (buscar_cliente_por_dni($dni,$pdo)){
+            if (Cliente::buscar_por_dni($dni)){
                 $error[] = 'Ya existe un cliente con ese dni';
             }
         } 
@@ -96,23 +98,6 @@ function mostrar_errores(array $error): void
 }
 
 
-function buscar_cliente ($id,$pdo = null ) : array | false
-{
-    $pdo = $pdo ?? conectar();
-    $sent = $pdo->prepare ('SELECT * FROM clientes WHERE id = :id');
-    $sent->execute([':id'=> $id]);
-    return $sent->fetch();
-}
-
-function buscar_cliente_por_dni ($dni, ?PDO $pdo = null ) : array | false
-{
-    $pdo = $pdo ?? conectar();
-    $sent = $pdo->prepare ('SELECT * FROM clientes WHERE dni = :dni');
-    $sent->execute([':dni'=> $dni]);
-    return $sent->fetch();
-}
-
-
 
 function validar_dni_update($dni ,$id, &$error, ?PDO $pdo = null) 
 {
@@ -121,11 +106,9 @@ function validar_dni_update($dni ,$id, &$error, ?PDO $pdo = null)
         } else if ( mb_strlen($dni) > 9) {
             $error[] = 'El DNI es demasiado largo';
         } else {  
-            $pdo = conectar();
-            $sent = $pdo->prepare('SELECT * FROM clientes WHERE dni = :dni and id != :id');
-            $sent->execute([':dni' => $dni,':id' => $id]);
-            if ($sent->fetch()){
-                $error[] = 'Ya existe un cliente con ese dni';
+            $cliente =Cliente::buscar_por_dni($dni);
+            if ($cliente && $cliente->id != $id){
+                $error[] = 'Ya existe un cliente ocn ese DNI';
             }
         } 
 }
