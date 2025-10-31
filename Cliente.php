@@ -1,5 +1,7 @@
 <?php
 
+use Dom\Document;
+
 require_once 'auxiliar.php';
 
 class Cliente
@@ -22,23 +24,8 @@ class Cliente
             $this->$k=$v;
         }
     }
-
-    public function guardar():void
-    {   $pdo = Cliente::pdo();
-        $sent = $pdo->prepare('INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
-                                   VALUES (:dni, :nombre, :apellidos, :direccion, :codpostal, :telefono)');
-            $sent -> execute([
-                'dni'        => $this->dni,
-                'nombre'     => $this->nombre ,
-                'apellidos'  => $this->apellidos ,
-                'direccion'  => $this->direccion ,
-                'codpostal'  => $this->codpostal ,
-                'telefono'   => $this->telefono, 
-            ]);
-    }
-
     
-    public static function buscar_por_id(string $id): ?Cliente
+    public static function buscar_por_id(string|int $id): ?Cliente
     {
         $pdo = Cliente::pdo();
         $sent = $pdo->prepare ('SELECT * FROM clientes WHERE id = :id');
@@ -47,6 +34,63 @@ class Cliente
         return $sent->fetchObject(Cliente::class) ?: null;    
     }
     
+      public static function buscar_por_dni(string $dni): ?Cliente
+    {
+        $pdo = Cliente::pdo();
+        $sent = $pdo->prepare ('SELECT * FROM clientes WHERE dni = :dni');
+        $sent->execute([':dni'=> $dni]);
+        //si da tru devuelve a(izquierda) si no devuelve el de la derecha
+        return $sent->fetchObject(Cliente::class) ?: null;    
+    }
+    
+    public function guardar():void
+    {   
+        if (isset($this->id)){
+            $this ->modificar();
+        } else {
+            $this ->insertar();
+        }
+    }
+
+    
+    private function insertar(){
+            $pdo = Cliente::pdo();
+            $sent = $pdo->prepare('INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
+                                   VALUES (:dni, :nombre, :apellidos, :direccion, :codpostal, :telefono)
+                                   RETURNING (id)');
+            $sent -> execute([
+                'dni'        => $this->dni,
+                'nombre'     => $this->nombre ,
+                'apellidos'  => $this->apellidos ,
+                'direccion'  => $this->direccion ,
+                'codpostal'  => $this->codpostal ,
+                'telefono'   => $this->telefono, 
+            ]);
+            //devuelve el valor de la columan del cliente 0 de la columna 0
+            $this->id = $sent->fetchColumn() ?: null;;
+    }
+
+    private function modificar(){
+        $pdo = Cliente::pdo();
+        $sent = $pdo->prepare('UPDATE clientes
+                                  SET dni = :dni,
+                                      nombre = :nombre,
+                                      apellidos = :apellidos,
+                                      direccion = :direccion,
+                                      codpostal = :codpostal,
+                                      telefono = :telefono
+                                WHERE id = :id');
+        $sent->execute([
+            ':id'        => $this->id,
+            ':dni'       => $this->dni,
+            ':nombre'    => $this->nombre,
+            ':apellidos' => $this->apellidos,
+            ':direccion' => $this->direccion,
+            ':codpostal' => $this->codpostal,
+            ':telefono'  => $this->telefono,
+        ]);
+    }
+
     /**
      * Devuelve todos los clientes 
      * 

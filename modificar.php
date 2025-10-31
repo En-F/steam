@@ -8,7 +8,8 @@
 </head>
 <body>
     <?php
-    require 'auxiliar.php';
+    require_once 'auxiliar.php';
+    require_once 'Cliente.php';
 
     if (!esta_logueado()) {
         return;
@@ -19,11 +20,10 @@
     if (!isset($id) || !ctype_digit($id)) {
         return volver_index();
     }
-
-    $pdo = conectar();
-    $fila = buscar_cliente($id, $pdo);
-
-    if (!$fila) {
+    
+    $cliente = Cliente::buscar_por_id($id);
+    
+    if (!$cliente) {
         $_SESSION['fallo']='El cliente se ha modificar no existe';
         return volver_index();
     }
@@ -50,23 +50,13 @@
             validar_sanear_telefono($telefono, $error);
 
             if (empty($error)) {
-                $sent = $pdo->prepare('UPDATE clientes
-                                          SET dni = :dni,
-                                              nombre = :nombre,
-                                              apellidos = :apellidos,
-                                              direccion = :direccion,
-                                              codpostal = :codpostal,
-                                              telefono = :telefono
-                                        WHERE id = :id');
-                $sent->execute([
-                    ':id'        => $id,
-                    ':dni'       => $dni,
-                    ':nombre'    => $nombre,
-                    ':apellidos' => $apellidos,
-                    ':direccion' => $direccion,
-                    ':codpostal' => $codpostal,
-                    ':telefono'  => $telefono,
-                ]);
+                $cliente->dni        = $dni;
+                $cliente->nombre     = $nombre ;
+                $cliente->apellidos  = $apellidos ;
+                $cliente->direccion  = $direccion ;
+                $cliente->codpostal  = $codpostal ;
+                $cliente->telefono   = $telefono;
+                $cliente ->guardar();
                 $_SESSION['exito']='El cliente se ha modificado  correctamente';
                 return volver_index();
             } else {
@@ -75,6 +65,7 @@
             }
         }
     } else {
+        $fila = (array) $cliente;
         extract($fila);
     }
 

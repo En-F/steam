@@ -49,6 +49,7 @@
             ]);
             $cliente->guardar();
             $pdo->commit();
+            var_dump($cliente); die();
             $_SESSION['exito']='El cliente se ha insertado correctamente';
             return  volver_index();    
         } else {
