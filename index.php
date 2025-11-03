@@ -1,3 +1,4 @@
+<?php namespace App; ?>
 <?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +9,8 @@
 </head>
 <body>
     <?php
+
+
     require_once 'auxiliar.php';
     require_once 'Cliente.php';
     //require_once 'Guardable.php';
@@ -38,7 +41,7 @@
             <th colspan="2">Acciones</th>
         </thead>
         <tbody>
-            <?php foreach (Cliente::todos() as $cliente): ?>
+            <?php foreach (\AR\Cliente::todos() as $cliente): ?>
                 <tr>
                     <td><?= hh($cliente->dni) ?></td>
                     <td><?= hh($cliente->nombre) ?></td>
