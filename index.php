@@ -10,10 +10,20 @@
     <?php
     require_once 'auxiliar.php';
     require_once 'Cliente.php';
+    //require_once 'Guardable.php';
 
     if(!esta_logueado()){
         return ;
     }
+    
+    //Con esto implementas el metodo interfaz con el guardar
+    // function x(Guardable $g)
+    // {
+        // $g->guardar();
+    // }
+
+    // x($cliente)
+
 
     ?>
     <?php cabecera()?>
