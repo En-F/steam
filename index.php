@@ -9,27 +9,18 @@
 </head>
 <body>
     <?php
-
-
     require_once 'auxiliar.php';
     require_once 'Cliente.php';
-    //require_once 'Guardable.php';
+    require_once 'Guardable.php';
+    require_once 'Cadenas.php';
 
-    if(!esta_logueado()){
-        return ;
+    use AR\Cliente;
+
+    if (!esta_logueado()) {
+        return;
     }
-    
-    //Con esto implementas el metodo interfaz con el guardar
-    // function x(Guardable $g)
-    // {
-        // $g->guardar();
-    // }
-
-    // x($cliente)
-
-
     ?>
-    <?php cabecera()?>
+    <?php cabecera() ?>
     <table border="1">
         <thead>
             <th>DNI</th>
@@ -41,7 +32,7 @@
             <th colspan="2">Acciones</th>
         </thead>
         <tbody>
-            <?php foreach (\AR\Cliente::todos() as $cliente): ?>
+            <?php foreach (Cliente::todos() as $cliente): ?>
                 <tr>
                     <td><?= hh($cliente->dni) ?></td>
                     <td><?= hh($cliente->nombre) ?></td>
@@ -51,7 +42,7 @@
                     <td><?= hh($cliente->telefono) ?></td>
                     <td>
                         <form action="borrar.php" method="post">
-                            <?php campo_csrf()?>
+                            <?php campo_csrf() ?>
                             <input type="hidden" name="id" value="<?= hh($cliente->id) ?>">
                             <button type="submit">Borrar</button>
                         </form>
@@ -63,7 +54,6 @@
             <?php endforeach ?>
         </tbody>
     </table>
-    <br>    
-    <a href="insertar.php">Insertar nuevo cliente</a>
+    <a href="insertar.php">Insertar un nuevo cliente</a>
 </body>
 </html>

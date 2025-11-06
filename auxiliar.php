@@ -101,16 +101,16 @@ function mostrar_errores(array $error): void
 
 function validar_dni_update($dni ,$id, &$error, ?PDO $pdo = null) 
 {
-    if ($dni === '') {
-            $error[] = 'El DNI es obligatorio';
-        } else if ( mb_strlen($dni) > 9) {
-            $error[] = 'El DNI es demasiado largo';
-        } else {  
-            $cliente =Cliente::buscar_por_dni($dni);
-            if ($cliente && $cliente->id != $id){
-                $error[] = 'Ya existe un cliente ocn ese DNI';
-            }
-        } 
+   if ($dni === '') {
+        $error[] = 'El DNI es obligatorio';
+    } elseif (mb_strlen($dni) > 9) {
+        $error[] = 'El DNI es demasiado largo';
+    } else {
+        $cliente = Cliente::buscar_por_dni($dni);
+        if ($cliente && $cliente->id != $id) {
+            $error[] = 'Ya existe un cliente con ese DNI';
+        }
+    } 
 }
 
 function cabecera()
