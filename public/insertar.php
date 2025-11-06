@@ -7,9 +7,11 @@
     <title>Insertar un nuevo cliente</title>
 </head>
 <body>
-    <?php 
-    require_once 'auxiliar.php';
-    require_once 'Cliente.php';
+    <?php
+    require_once '../src/auxiliar.php';
+    require_once '../vendor/autoload.php';
+    use App\AR\Cliente;
+     
     if(!esta_logueado()){
         return;
     }

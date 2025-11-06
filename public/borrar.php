@@ -1,8 +1,11 @@
 <?php
+
+use App\AR\Cliente;
+
 session_start();
 
-require_once 'auxiliar.php';
-require_once 'Cliente.php';
+require_once '../vendor/autoload.php';
+require_once '../src/auxiliar.php';
 
 if (!esta_logueado()) {
     return;
