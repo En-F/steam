@@ -1,8 +1,6 @@
 <?php
 
-namespace AR;
-require_once 'auxiliar.php';
-require_once 'ActiveRecord.php';
+namespace App\AR;
 
 class Cliente extends ActiveRecord
 {

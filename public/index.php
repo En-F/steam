@@ -9,12 +9,10 @@
 </head>
 <body>
     <?php
-    require_once 'auxiliar.php';
-    require_once 'Cliente.php';
-    require_once 'Guardable.php';
-    require_once 'Cadenas.php';
+    require '../vendor/autoload.php';
+    require_once '../src/auxiliar.php';
 
-    use AR\Cliente;
+    use App\AR\Cliente;
 
     if (!esta_logueado()) {
         return;

@@ -1,13 +1,10 @@
 <?php
 
-namespace AR;
+namespace App\AR;
 
-use Utilidades\Cadenas;
-use Utilidades\Guardable;
+use App\Utilidades\Cadenas;
+use App\Utilidades\Guardable;
 use PDO;
-
-require_once 'Guardable.php';
-require_once 'Cadenas.php';
 
 abstract class ActiveRecord implements Guardable
 {

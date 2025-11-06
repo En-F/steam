@@ -1,6 +1,6 @@
 <?php
 
-namespace Utilidades;
+namespace App\Utilidades;
 
 trait Cadenas
 {
