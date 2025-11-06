@@ -8,10 +8,9 @@
 </head>
 <body>
     <?php
-    require_once '../src/auxiliar.php';
     require_once '../vendor/autoload.php';
     use App\AR\Cliente;
-     
+
     if(!esta_logueado()){
         return;
     }
@@ -51,7 +50,6 @@
             ]);
             $cliente->guardar();
             $pdo->commit();
-            var_dump($cliente); die();
             $_SESSION['exito']='El cliente se ha insertado correctamente';
             return  volver_index();    
         } else {

@@ -1,4 +1,3 @@
-<?php namespace App; ?>
 <?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,7 @@
 <body>
     <?php
     require '../vendor/autoload.php';
-    require_once '../src/auxiliar.php';
+
 
     use App\AR\Cliente;
 

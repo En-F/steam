@@ -3,6 +3,7 @@
         "dompdf/dompdf": "^3.1"
     },
     "autoload": {
-        "psr-4": {"App\\": "src"}
+        "psr-4": {"App\\": "src"},
+        "files": ["src/auxiliar.php"]
     }
 }

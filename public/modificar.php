@@ -8,7 +8,6 @@
 </head>
 <body>
     <?php
-        require_once '../src/auxiliar.php';
         require_once '../vendor/autoload.php';
         use App\AR\Cliente;
 
